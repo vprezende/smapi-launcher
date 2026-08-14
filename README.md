@@ -113,7 +113,7 @@ If you find **SMAPI Launcher** helpful, consider supporting the development! You
 
 ## 🙏 Acknowledgements
 
-- **Banner:** Pixel artwork created by [@Beatzoid](https://github.com/Beatzoid)
+- **Banner:** Pixel artwork created by [@Beatzoid](https://www.reddit.com/user/Bratzoid/)
 
 ## 📜 License
 
