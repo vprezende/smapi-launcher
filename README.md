@@ -30,7 +30,7 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
   </li>
   <li>
     <img src="https://cdn.simpleicons.org/markdown/0891B2" width="16"> 
-    <strong>Markdown & YAML Frontmatter:</strong> Maintaining clean, decoupled configuration and help templates.
+    <strong>Markdown:</strong> Used to manage clean CLI help docs and usage guides.
   </li>
   <li>
     <img src="https://cdn.simpleicons.org/yarn/2C8EBB" width="16"> 
@@ -41,8 +41,8 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-- **Decoupled Developer & User Pipelines:** Clean separation between the developer compilation pipeline (`yarn build`) and the user CLI generator (`smapi-launcher`).
-- **Decoupled Configuration:** Reads CLI flags and help screens dynamically from structured Markdown and YAML files.
+- **Separate Build and CLI Scripts:** Clear separation between compiling the binary (`yarn build`) and generating launchers (`smapi-launcher`).
+- **Markdown-Powered Help:** Loads clean and readable help docs directly from Markdown files.
 - **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
 
 ## 🛠️ Getting Started
@@ -82,7 +82,7 @@ yarn install
 yarn smapi-launcher --help
 ```
 
-5. Compile the binary template (Developers only):
+5. Compile the binary (Developers only):
 
 ```bash
 yarn build
