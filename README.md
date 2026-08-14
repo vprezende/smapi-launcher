@@ -114,7 +114,7 @@ If you find **SMAPI Launcher** helpful, consider supporting the development! You
 
 ## 🙏 Acknowledgements
 
-- **Stardew Valley:** A heart-full thank you to Eric Barone ([@ConcernedApe](https://twitter.com/ConcernedApe)) for creating this masterpiece of a game.
+- **Stardew Valley:** A heart-full thank you to Eric Barone ([@ConcernedApe](https://twitter.com/ConcernedApe)) for this masterpiece of a game.
 - **SMAPI:** A huge thank you to [@Pathoschild](https://github.com/Pathoschild) for enabling the amazing Stardew Valley modding ecosystem.
 - **Banner:** Special thanks to [@Beatzoid](https://www.reddit.com/user/Bratzoid/) for creating and sharing this incredible pixel artwork.
 
