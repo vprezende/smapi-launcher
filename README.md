@@ -1,9 +1,8 @@
 <div align="center">
   <img 
-    src=".github/assets/banner.jpg" 
+    src=".github/assets/banner.png" 
     alt="SMAPI Launcher" 
     width="650"
-    style="border-radius: 24px;"
   >
 
   <br>
