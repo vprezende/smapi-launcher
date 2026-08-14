@@ -54,14 +54,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smapi_launcher@workspace:.":
+"smapi-launcher@workspace:.":
   version: 0.0.0-use.local
-  resolution: "smapi_launcher@workspace:."
+  resolution: "smapi-launcher@workspace:."
   dependencies:
     node-emoji: "npm:^2.2.0"
     picocolors: "npm:^1.1.1"
   bin:
-    smapi_launcher: core/src/cli/index.js
+    smapi-launcher: core/src/cli/index.js
   languageName: unknown
   linkType: soft
 
