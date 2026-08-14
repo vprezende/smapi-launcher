@@ -1,0 +1,37 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node
+node_modules
+
+# Build Outputs
+dist
+dist-ssr
+
+# Local Environment
+*.local
+
+# Rust
+core/target
+
+# Binaries
+core/src/bin/
+
+# Package Manager Cache
+.yarnrc.yml
+.yarn/install-state.gz
+
+# Editor Directories and Files
+.vscode
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

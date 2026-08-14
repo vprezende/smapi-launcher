@@ -1,0 +1,21 @@
+{
+  "name": "smapi-launcher",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "bin": "core/src/cli/index.js",
+  "files": [
+    "core/src/cli",
+    "core/src/bin"
+  ],
+  "scripts": {
+    "smapi-launcher": "node core/src/cli/index.js",
+    "build": "node core/src/build.js",
+    "clean:cargo": "rm -rf core/target core/Cargo.lock",
+    "clean": "yarn clean:cargo && rm -rf core/src/bin"
+  },
+  "dependencies": {
+    "node-emoji": "^2.2.0",
+    "picocolors": "^1.1.1"
+  }
+}
