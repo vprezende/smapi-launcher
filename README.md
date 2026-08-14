@@ -1,6 +1,17 @@
-# SMAPI Launcher
+<div align="center">
+  <img 
+    src=".github/assets/banner.jpg" 
+    alt="SMAPI Launcher" 
+    width="650"
+    style="border-radius: 24px;"
+  >
 
-**SMAPI Launcher** is a modern CLI tool built for Stardew Valley players and modders to generate native custom executable launchers for StardewModdingAPI that run silently **without opening a console or terminal window**, powered by **Rust** and **Node.js**.
+  <br>
+
+  <h1>SMAPI Launcher</h1>
+
+  <p>A fast and lightweight CLI tool to generate native silent executable launchers for SMAPI (Stardew Valley).</p>
+</div>
 
 ## 🚀 Tech Stack
 
