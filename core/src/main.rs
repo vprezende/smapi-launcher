@@ -12,10 +12,10 @@ use std::process::Command;
 
 use windows_sys::Win32::System::Threading::CREATE_NO_WINDOW;
 
-fn main() -> Result<(), String> {
+fn main() {
 	
 	let mut exe_path = env::current_exe()
-		.map_err(|error| error.to_string())?;
+		.unwrap();
 
 	exe_path.pop();
 	exe_path.push("StardewModdingAPI.exe");
@@ -24,8 +24,6 @@ fn main() -> Result<(), String> {
 		Command::new(exe_path)
 			.creation_flags(CREATE_NO_WINDOW)
 			.spawn()
-			.map_err(|error| error.to_string())?;
+			.ok();
 	}
-
-	Ok(())
 }
