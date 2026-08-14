@@ -41,7 +41,6 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-- **Zero External Toolchain Requirements (NPM Package):** When installed globally via NPM (`npm install -g smapi-launcher`), the package ships with a pre-compiled binary template (`launcher.bin`), allowing end-users to generate launchers instantly via native file operations without installing Rust, Cargo, or GCC.
 - **Decoupled Developer & User Pipelines:** Clean separation between the developer compilation pipeline (`yarn build`) and the user CLI generator (`smapi-launcher`).
 - **Decoupled Configuration:** Reads CLI flags and help screens dynamically from structured Markdown and YAML files.
 - **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
@@ -50,10 +49,12 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 
 ### Prerequisites
 
-Ensure you have the following installed on your machine:
-
-- ⚙️ Runtime: [Node.js](https://nodejs.org/) (v18.3.0+ or higher)
+- ⚙️ Runtime: [Node.js](https://nodejs.org/)
 - 📦 Package Manager: [Yarn](https://yarnpkg.com/)
+- 🦀 Toolchain: [Rust](https://rustup.rs/)
+
+> [!NOTE]
+> When installed globally via NPM (`npm install -g smapi-launcher`), the Rust toolchain is not required, as the package ships with the pre-compiled binary (`launcher.bin`).
 
 ### Installation
 
