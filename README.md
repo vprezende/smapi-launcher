@@ -1,9 +1,5 @@
 <div align="center">
-  <img 
-    src=".github/assets/banner.png" 
-    alt="SMAPI Launcher" 
-    width="650"
-  >
+  <img src=".github/assets/banner.png" alt="SMAPI Launcher">
 
   <br>
 
@@ -110,6 +106,10 @@ If you find **SMAPI Launcher** helpful, consider supporting the development! You
 <a href="https://www.buymeacoffee.com/vprezende" target="_blank">
   <img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="Buy Me A Coffee" width="150" height="35">
 </a>
+
+## 🙏 Acknowledgements
+
+- **Banner:** Pixel artwork created by [@Beatzoid](https://github.com/Beatzoid)
 
 ## 📜 License
 
