@@ -106,7 +106,7 @@ export default async function applyPatch(folderPath) {
     const statusLabel = `${emoji('check')} Status:`;
     const pathLabel = `${emoji('file_folder')} Path:`;
 
-    const statusMessage = `${pc.green(statusLabel)} Garbage Collection patch applied successfully`;
+    const statusMessage = `${pc.green(statusLabel)} Garbage Collector patch applied successfully`;
     const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
 
     const statusLine = indent(statusMessage, 1);

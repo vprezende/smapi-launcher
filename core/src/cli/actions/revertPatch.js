@@ -60,7 +60,7 @@ export default async function revertPatch(folderPath) {
     const statusLabel = `${emoji('check')} Status:`;
     const pathLabel = `${emoji('file_folder')} Path:`;
 
-    const statusMessage = `${pc.green(statusLabel)} Garbage Collection patch removed successfully`;
+    const statusMessage = `${pc.green(statusLabel)} Garbage Collector patch removed successfully`;
     const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
 
     const statusLine = indent(statusMessage, 1);
