@@ -3,7 +3,7 @@
   <br>
   <h1>SMAPI Launcher</h1>
   <br>
-  <p>A fast and lightweight CLI tool to generate native silent executable launchers for SMAPI (Stardew Valley).</p>
+  <p>A fast and lightweight CLI tool to generate native silent launchers and boost modded performance for SMAPI (Stardew Valley).</p>
 </div>
 
 ---
