@@ -3,7 +3,7 @@
   <br>
   <h1>SMAPI Launcher</h1>
   <br>
-  <p>A fast CLI tool to generate native silent launchers and boost modded performance for Stardew Valley.</p>
+  <p>A fast CLI tool to create silent launchers and boost modded performance for SMAPI (Stardew Valley).</p>
 </div>
 
 ---
