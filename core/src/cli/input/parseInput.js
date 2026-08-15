@@ -24,18 +24,20 @@ export default async function parseInput(args) {
     
     parseConfig.args = rawArgs;
     parseConfig.options = options;
+    parseConfig.allowPositionals = true;
 
     const parsedArgs = util.parseArgs(parseConfig);
 
     const parsedInput = new Object();
     
     parsedInput.values = parsedArgs.values;
+    parsedInput.positionals = parsedArgs.positionals;
 
     return parsedInput;
 
   } catch (error) {
 
-   const badFlags = rawArgs
+    const badFlags = rawArgs
       .filter((arg) => arg.startsWith('-'))
       .filter((arg) => !arg.startsWith('--'))
       .filter((arg) => arg.length > 2);
@@ -51,10 +53,12 @@ export default async function parseInput(args) {
 
     const rawMessage = error.message;
 
-    const optionReplacement = ["Unknown option '", 'Unknown option: '];
-    const quoteReplacement = [/'$/, ''];
+    const [firstSentence] = rawMessage.split('.');
 
-    const cleanMessage = rawMessage
+    const optionReplacement = ["Unknown option '", 'Unknown option: '];
+    const quoteReplacement = [/'/g, ''];
+
+    const cleanMessage = firstSentence
       .replace(...optionReplacement)
       .replace(...quoteReplacement);
 

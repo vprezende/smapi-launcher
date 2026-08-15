@@ -37,6 +37,7 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
+- **.NET Garbage Collection Patch & Revert:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collection to eliminate walking and rendering stuttering with heavy modpacks.
 - **Separate Build and CLI Scripts:** Clear separation between compiling the binary (`yarn build`) and generating launchers (`smapi-launcher`).
 - **Markdown-Powered Help:** Loads clean and readable help docs directly from Markdown files.
 - **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
@@ -88,6 +89,18 @@ yarn build
 
 ```bash
 yarn smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
+```
+
+7. Apply the .NET Garbage Collection performance patch:
+
+```bash
+yarn smapi-launcher patch -p /path/to/Stardew\ Valley
+```
+
+8. Revert the .NET Garbage Collection performance patch:
+
+```bash
+yarn smapi-launcher unpatch -p /path/to/Stardew\ Valley
 ```
 
 ## 🤝 How to Contribute
