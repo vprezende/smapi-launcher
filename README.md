@@ -52,7 +52,6 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 
 > [!NOTE]
 > - When installed globally via NPM (`npm install -g smapi-launcher`), the Rust toolchain is not required, as the package ships with the pre-compiled binary (`launcher.bin`).
->
 > - On Linux, the `patch` utility (`sudo apt-get install patch`) is required only if applying the multiplayer compatibility fix.
 
 ### Installation
