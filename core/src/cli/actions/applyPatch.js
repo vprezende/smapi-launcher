@@ -130,7 +130,7 @@ export default async function applyPatch(folderPath) {
       }
     }
 
-    const hasBlockers = [
+    const hasBlocker = [
       process.platform !== 'linux',
       missingCommand
     ].some(Boolean);
@@ -159,8 +159,8 @@ export default async function applyPatch(folderPath) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
       const notFoundMessage = "'patch' command was not found.";
-      const skippedMessage = "• Linux multiplayer fix was skipped.";
-      const installMessage = "• Install it with: sudo apt-get install patch";
+      const skippedMessage = `${emoji('bullet')} Linux multiplayer fix was skipped.`;
+      const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
 
       const warningHeader = `${pc.yellow(warningLabel)} ${notFoundMessage}`;
 
