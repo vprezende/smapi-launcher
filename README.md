@@ -3,7 +3,7 @@
   <br>
   <h1>SMAPI Launcher</h1>
   <br>
-  <p>A fast CLI to create native silent launchers and apply essential patches for SMAPI (Stardew Valley).</p>
+  <p>A fast CLI tool to create native silent launchers and apply essential patches for SMAPI (Stardew Valley).</p>
 </div>
 
 ---
