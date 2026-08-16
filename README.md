@@ -3,7 +3,7 @@
   <br>
   <h1>SMAPI Launcher</h1>
   <br>
-  <p>A fast CLI tool to create silent launchers and boost modded performance for SMAPI (Stardew Valley).</p>
+  <p>A fast and lightweight CLI tool to generate native silent launchers and apply essential patches for SMAPI (Stardew Valley).</p>
 </div>
 
 ---
@@ -37,7 +37,7 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-- **.NET Garbage Collector Patch & Revert:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate walking and rendering stuttering with heavy modpacks.
+- **Essential Performance & Compatibility Patches:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector and Linux multiplayer compatibility fixes (`libGalaxy64.so`) to eliminate mod stuttering and ensure smooth gameplay.
 - **Separate Build and CLI Scripts:** Clear separation between compiling the binary (`yarn build`) and generating launchers (`smapi-launcher`).
 - **Markdown-Powered Help:** Loads clean and readable help docs directly from Markdown files.
 - **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
@@ -91,13 +91,13 @@ yarn build
 yarn smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
 ```
 
-7. Apply the .NET Garbage Collector performance patch:
+7. Apply essential performance and compatibility patches:
 
 ```bash
 yarn smapi-launcher patch -p /path/to/Stardew\ Valley
 ```
 
-8. Revert the .NET Garbage Collector performance patch:
+8. Revert applied patches:
 
 ```bash
 yarn smapi-launcher unpatch -p /path/to/Stardew\ Valley

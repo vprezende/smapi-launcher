@@ -4,8 +4,8 @@ Usage:
   smapi_launcher unpatch -p <path>
 
 Commands:
-  patch           Apply .NET Garbage Collector performance patch to reduce stuttering.
-  unpatch         Remove .NET Garbage Collector performance patch.
+  patch           Apply essential performance (.NET GC) and compatibility patches.
+  unpatch         Revert applied performance and compatibility patches.
 
 Options:
   -p, --path      Path to the Stardew Valley folder.
