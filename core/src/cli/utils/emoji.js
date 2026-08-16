@@ -4,7 +4,8 @@ export default function emoji(name) {
 
   const emojis = {
     check: '\u2714',
-    file_folder: '\u{1F5C0}'
+    file_folder: '\u{1F5C0}',
+    warning: '\u{25B2}'
   };
 
   const emojiChar = emojis[name] ?? nodeEmoji.get(name);
