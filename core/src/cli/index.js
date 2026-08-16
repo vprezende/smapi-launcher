@@ -50,6 +50,7 @@ const main = (async () => {
     }
 
     await applyPatch(options.path);
+
     process.exit(0);
   }
 
@@ -75,6 +76,7 @@ const main = (async () => {
     }
 
     await revertPatch(options.path);
+    
     process.exit(0);
   }
 
