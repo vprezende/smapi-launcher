@@ -18,8 +18,8 @@ export default async function revertPatch(folderPath) {
   const plaforms = [
     process.platform,
     'win32',
-    'darwin',
     'linux',
+    'darwin',
   ];
   
   const platform = plaforms.at(0);
