@@ -43,7 +43,7 @@ const main = (() => {
     ...targetArgs
   ];
 
-  const compilationMessage = pc.cyan(`${emoji('gear')} Compiling Rust binary...`);
+  const compilationMessage = pc.cyan(`${emoji('gear')} Compiling Rust binary`);
 
   const compilationLine = indent(compilationMessage, 1);
 
