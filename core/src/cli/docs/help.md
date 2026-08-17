@@ -5,7 +5,7 @@ Usage:
 
 Commands:
   patch           Apply essential performance (.NET GC) and compatibility patches.
-  unpatch         Revert applied performance and compatibility patches.
+  unpatch         Revert applied performance (.NET GC) and compatibility patches.
 
 Options:
   -p, --path      Path to the Stardew Valley folder.

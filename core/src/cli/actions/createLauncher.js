@@ -53,14 +53,62 @@ export default async function createLauncher(folderPath, output) {
 
   } catch (error) {
 
+    if (error.code === 'ENOENT') {
+
+      const displayPath = formatPath(folderPath);
+
+      const statusLabel = `${emoji('cross')} Status:`;
+      const warningLabel = `${emoji('warning')} Warning:`;
+      const pathLabel = `${emoji('file_folder')} Path:`;
+
+      const missingFileMessage = `${emoji('bullet')} 'StardewModdingAPI.exe' is missing from the game folder.`;
+      const installMessage = `${emoji('bullet')} Only Windows/Proton (.exe) installations are supported.`;
+
+      const statusMessage = `${pc.red(statusLabel)} Launcher creation failed`;
+      const warningHeader = `${pc.yellow(warningLabel)} Required file was not found.`;
+      const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
+
+      const statusLine = indent(statusMessage, 1);
+
+      const warningLine = indent(warningHeader, 1);
+      const missingFileLine = indent(missingFileMessage, 2);
+      const installLine = indent(installMessage, 2);
+      
+      const pathLine = indent(pathMessage, 1);
+
+      stderr.write('\n');
+      stderr.write(statusLine);
+
+      stderr.write('\n');
+      stderr.write('\n');
+
+      stderr.write(warningLine);
+
+      stderr.write('\n');
+      stderr.write(missingFileLine);
+
+      stderr.write('\n');
+      stderr.write(installLine);
+
+      stderr.write('\n');
+      stderr.write('\n');
+
+      stderr.write(pathLine);
+
+      stderr.write('\n');
+      stderr.write('\n');
+
+      process.exit(1);
+    }
+
     const errorLine = indent(error.message, 1);
 
     stderr.write('\n');
     stderr.write(errorLine);
-    
+
     stderr.write('\n');
     stderr.write('\n');
-    
+
     process.exit(1);
   }
 }
