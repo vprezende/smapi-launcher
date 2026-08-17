@@ -4,6 +4,7 @@ export default function emoji(name) {
 
   const emojis = {
     check: '\u2714',
+    cross: '\u2716',
     file_folder: '\u{1F5C0}',
     warning: '\u{25B2}',
     bullet: '\u{2022}'

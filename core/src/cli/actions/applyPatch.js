@@ -1,10 +1,5 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import process from 'node:process';
-import os from 'node:os';
-import util from 'node:util';
-import childProcess from 'node:child_process';
 
 import pc from 'picocolors';
 import emoji from '../utils/emoji.js';
@@ -12,157 +7,90 @@ import emoji from '../utils/emoji.js';
 import formatPath from '../utils/formatPath.js';
 import indent from '../utils/indent.js';
 
+import applyGarbageCollector from './garbageCollector/applyGarbageCollector.js';
+import applyMultiplayer from './multiplayer/applyMultiplayer.js';
+
 export default async function applyPatch(folderPath) {
 
-  const execFile = childProcess.execFile;
-  const execFileAsync = util.promisify(execFile);
+  const plaforms = [
+    process.platform,
+    'win32',
+    'darwin',
+    'linux',
+  ];
+
+  const platform = plaforms.at(0);
 
   const stdout = process.stdout;
   const stderr = process.stderr;
-
-  const targetFiles = [
-    'StardewModdingAPI.runtimeconfig.json',
-    'Stardew Valley.runtimeconfig.json'
-  ];
 
   try {
 
     await fs.access(folderPath);
 
-    for (const fileName of targetFiles) {
-      const filePath = path.join(folderPath, fileName);
-
-      let parsedConfig;
-
-      try {
-        await fs.access(filePath);
-        const rawContent = await fs.readFile(filePath, 'utf-8');
-        parsedConfig = JSON.parse(rawContent);
-      } catch {
-        
-        parsedConfig = new Object();
-
-        const runtimeOptions = new Object();
-        runtimeOptions.tfm = 'net6.0';
-
-        const framework = new Object();
-        framework.name = 'Microsoft.NETCore.App';
-        framework.version = '6.0.0';
-        framework.rollForward = 'latestMinor';
-
-        runtimeOptions.includedFrameworks = new Array();
-        runtimeOptions.includedFrameworks.push(framework);
-
-        const tieredCompilation = 'System.Runtime.TieredCompilation';
-
-        const configMap = new Map();
-
-        const setMethod = configMap.set;
-        const setProperty = setMethod.bind(configMap);
-
-        setProperty(tieredCompilation, false);
-
-        runtimeOptions.configProperties = Object.fromEntries(configMap);
-
-        parsedConfig.runtimeOptions = runtimeOptions;
-      }
-
-      parsedConfig.runtimeOptions ??= new Object();
-
-      const runtimeOptions = parsedConfig.runtimeOptions;
-
-      runtimeOptions.configProperties ??= new Object();
-      
-      const configProperties = runtimeOptions.configProperties;
-
-      const gcConcurrent = 'System.GC.Concurrent';
-      const gcServer = 'System.GC.Server';
-      const gcRetainVM = 'System.GC.RetainVM';
-
-      const configMap = new Map(
-        Object.entries(
-          configProperties
-        )
-      );
-
-      const setMethod = configMap.set;
-      
-      const setProperty = setMethod.bind(configMap);
-
-      setProperty(gcConcurrent, true);
-      setProperty(gcServer, false);
-      setProperty(gcRetainVM, true);
-
-      runtimeOptions.configProperties = Object.fromEntries(configMap);
-
-      const stringifyOptions = [null, 2];
-
-      const jsonContent = JSON.stringify(parsedConfig, ...stringifyOptions);
-
-      const formattedJson = `${jsonContent}${os.EOL}`;
-
-      const fileData = [filePath, formattedJson];
-
-      await fs.writeFile(...fileData, 'utf-8');
-    }
+    await applyGarbageCollector(folderPath);
 
     let missingCommand = false;
 
-    if (process.platform === 'linux') {
-
-      const galaxyLibraries = [
-        'libGalaxy64.so',
-        'libGalaxyCSharpGlue.so'
-      ];
-
-      for (const libraryName of galaxyLibraries) {
-        const libraryPath = path.join(folderPath, libraryName);
-
-        const patchArgs = ['--clear-execstack', libraryPath];
-
-        try {
-          await execFileAsync("patch", patchArgs);
-        } catch (error) {
-          if (error.code === 'ENOENT') {
-            missingCommand = true;
-          }
-        }
-      }
+    if (platform === 'linux') {
+      missingCommand = await applyMultiplayer(folderPath);
     }
 
-    const hasBlocker = [
-      process.platform !== 'linux',
+    const checkLabel = `${emoji('check')} Status:`;
+    const crossLabel = `${emoji('cross')} Status:`;
+
+    const statusLines = new Array();
+
+    const gcMessage = `${pc.green(checkLabel)} Garbage Collector patch applied successfully`;
+    const gcLine = indent(gcMessage, 1);
+
+    statusLines.push(gcLine);
+
+    const isMultiplayerSuccess = [
+      platform === 'linux',
+      !missingCommand
+    ].every(Boolean);
+
+    if (isMultiplayerSuccess) {
+
+      const mpMessage = `${pc.green(checkLabel)} Multiplayer patch applied successfully`;
+      const mpLine = indent(mpMessage, 1);
+
+      statusLines.push(mpLine);
+    }
+
+    const isMultiplayerFailed = [
+      platform === 'linux',
       missingCommand
-    ].some(Boolean);
+    ].every(Boolean);
 
-    let statusMessageText = 'Garbage Collector patch applied successfully';
+    if (isMultiplayerFailed) {
 
-    if (!hasBlocker) {
-      statusMessageText = 'Garbage Collector and Multiplayer patches applied successfully';
+      const mpMessage = `${pc.red(crossLabel)} Multiplayer patch failed`;
+      const mpLine = indent(mpMessage, 1);
+
+      statusLines.push(mpLine);
     }
 
     const displayPath = formatPath(folderPath);
 
-    const statusLabel = `${emoji('check')} Status:`;
     const pathLabel = `${emoji('file_folder')} Path:`;
-
-    const statusMessage = `${pc.green(statusLabel)} ${statusMessageText}`;
     const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
-
-    const statusLine = indent(statusMessage, 1);
     const pathLine = indent(pathMessage, 1);
 
-    stdout.write('\n');
-    stdout.write(statusLine);
+    for (const statusLine of statusLines) {
+      stdout.write('\n');
+      stdout.write(statusLine);
+    }
 
     if (missingCommand) {
+      
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const notFoundMessage = "'patch' command was not found.";
       const skippedMessage = `${emoji('bullet')} Linux multiplayer fix was skipped.`;
       const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
 
-      const warningHeader = `${pc.yellow(warningLabel)} ${notFoundMessage}`;
+      const warningHeader = `${pc.yellow(warningLabel)} 'patch' command was not found.`;
 
       const warningLine = indent(warningHeader, 1);
       const skippedLine = indent(skippedMessage, 2);
@@ -170,15 +98,19 @@ export default async function applyPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write('\n');
-      
+
       stdout.write(warningLine);
-      
+
       stdout.write('\n');
       stdout.write(skippedLine);
       
       stdout.write('\n');
       stdout.write(installLine);
       
+      stdout.write('\n');
+    }
+
+    if (isMultiplayerSuccess) {
       stdout.write('\n');
     }
 

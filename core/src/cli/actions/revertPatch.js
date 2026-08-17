@@ -1,11 +1,5 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import process from 'node:process';
-import childProcess from 'node:child_process';
-
-import os from 'node:os';
-import util from 'node:util';
 
 import pc from 'picocolors';
 import emoji from '../utils/emoji.js';
@@ -13,112 +7,90 @@ import emoji from '../utils/emoji.js';
 import formatPath from '../utils/formatPath.js';
 import indent from '../utils/indent.js';
 
-const execFile = childProcess.execFile;
-const execFileAsync = util.promisify(execFile);
+import revertGarbageCollector from './garbageCollector/revertGarbageCollector.js';
+import revertMultiplayer from './multiplayer/revertMultiplayer.js';
 
 export default async function revertPatch(folderPath) {
 
   const stdout = process.stdout;
   const stderr = process.stderr;
 
-  const targetFiles = [
-    'StardewModdingAPI.runtimeconfig.json',
-    'Stardew Valley.runtimeconfig.json'
+  const plaforms = [
+    process.platform,
+    'win32',
+    'darwin',
+    'linux',
   ];
+  
+  const platform = plaforms.at(0);
 
   try {
 
     await fs.access(folderPath);
 
-    for (const fileName of targetFiles) {
-      const filePath = path.join(folderPath, fileName);
-
-      const rawContent = await fs.readFile(filePath, 'utf-8');
-      const parsedConfig = JSON.parse(rawContent);
-
-      const runtimeOptions = parsedConfig?.runtimeOptions;
-      const configProperties = runtimeOptions?.configProperties;
-
-      if (configProperties) {
-
-        const gcConcurrent = 'System.GC.Concurrent';
-        const gcServer = 'System.GC.Server';
-        const gcRetainVM = 'System.GC.RetainVM';
-
-        delete configProperties[gcConcurrent];
-        delete configProperties[gcServer];
-        delete configProperties[gcRetainVM];
-
-        const stringifyOptions = [null, 2];
-
-        const jsonContent = JSON.stringify(parsedConfig, ...stringifyOptions);
-
-        const formattedJson = `${jsonContent}${os.EOL}`;
-
-        const fileData = [filePath, formattedJson];
-
-        await fs.writeFile(...fileData, 'utf-8');
-      }
-    }
+    await revertGarbageCollector(folderPath);
 
     let missingCommand = false;
 
-    if (process.platform === 'linux') {
-
-      const galaxyLibraries = [
-        'libGalaxy64.so',
-        'libGalaxyCSharpGlue.so'
-      ];
-
-      for (const libraryName of galaxyLibraries) {
-        
-        const libraryPath = path.join(folderPath, libraryName);
-
-        const patchArgs = ['--set-execstack', libraryPath];
-
-        try {
-          await execFileAsync('patch', patchArgs);
-        } catch (error) {
-          if (error.code === 'ENOENT') {
-            missingCommand = true;
-          }
-        }
-      }
+    if (platform === 'linux') {
+      missingCommand = await revertMultiplayer(folderPath);
     }
 
-    const hasBlocker = [
-      process.platform !== 'linux',
+    const checkLabel = `${emoji('check')} Status:`;
+    const crossLabel = `${emoji('cross')} Status:`;
+
+    const statusLines = new Array();
+
+    const gcMessage = `${pc.green(checkLabel)} Garbage Collector patch removed successfully`;
+    const gcLine = indent(gcMessage, 1);
+
+    statusLines.push(gcLine);
+
+    const isMultiplayerSuccess = [
+      platform === 'linux',
+      !missingCommand
+    ].every(Boolean);
+
+    if (isMultiplayerSuccess) {
+
+      const mpMessage = `${pc.green(checkLabel)} Multiplayer patch removed successfully`;
+      const mpLine = indent(mpMessage, 1);
+
+      statusLines.push(mpLine);
+    }
+
+    const isMultiplayerFailed = [
+      platform === 'linux',
       missingCommand
-    ].some(Boolean);
+    ].every(Boolean);
 
-    let statusMessageText = 'Garbage Collector patch removed successfully';
+    if (isMultiplayerFailed) {
 
-    if (!hasBlocker) {
-      statusMessageText = 'Garbage Collector and Multiplayer patches removed successfully';
+      const mpMessage = `${pc.red(crossLabel)} Multiplayer patch removal failed`;
+      const mpLine = indent(mpMessage, 1);
+
+      statusLines.push(mpLine);
     }
 
     const displayPath = formatPath(folderPath);
 
-    const statusLabel = `${emoji('check')} Status:`;
     const pathLabel = `${emoji('file_folder')} Path:`;
-
-    const statusMessage = `${pc.green(statusLabel)} ${statusMessageText}`;
     const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
-
-    const statusLine = indent(statusMessage, 1);
     const pathLine = indent(pathMessage, 1);
 
-    stdout.write('\n');
-    stdout.write(statusLine);
+    for (const statusLine of statusLines) {
+      stdout.write('\n');
+      stdout.write(statusLine);
+    }
 
     if (missingCommand) {
+
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const notFoundMessage = "'patch' command was not found.";
       const skippedMessage = `${emoji('bullet')} Linux multiplayer fix revert was skipped.`;
       const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
 
-      const warningHeader = `${pc.yellow(warningLabel)} ${notFoundMessage}`;
+      const warningHeader = `${pc.yellow(warningLabel)} 'patch' command was not found.`;
 
       const warningLine = indent(warningHeader, 1);
       const skippedLine = indent(skippedMessage, 2);
@@ -126,7 +98,7 @@ export default async function revertPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write('\n');
-      
+
       stdout.write(warningLine);
       
       stdout.write('\n');
@@ -135,6 +107,10 @@ export default async function revertPatch(folderPath) {
       stdout.write('\n');
       stdout.write(installLine);
       
+      stdout.write('\n');
+    }
+
+    if (isMultiplayerSuccess) {
       stdout.write('\n');
     }
 
