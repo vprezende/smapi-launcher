@@ -7,10 +7,6 @@ const execFileAsync = util.promisify(execFile);
 
 export default async function revertMultiplayer(folderPath) {
 
-  if (process.platform !== 'linux') {
-    return false;
-  }
-
   let missingCommand = false;
 
   const galaxyLibraries = [
