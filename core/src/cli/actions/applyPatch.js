@@ -15,8 +15,8 @@ export default async function applyPatch(folderPath) {
   const plaforms = [
     process.platform,
     'win32',
-    'darwin',
     'linux',
+    'darwin',
   ];
 
   const platform = plaforms.at(0);
