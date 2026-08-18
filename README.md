@@ -37,7 +37,7 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-- **Essential Performance & Compatibility Patches:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector and Linux multiplayer compatibility fixes (`libGalaxy64.so`) to eliminate mod stuttering and ensure smooth gameplay.
+- **Essential Performance & Compatibility Patches:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector and Linux multiplayer compatibility patches (`libGalaxy64.so`) to eliminate mod stuttering and ensure smooth gameplay.
 - **Separate Build and CLI Scripts:** Clear separation between compiling the binary (`yarn build`) and generating launchers (`smapi-launcher`).
 - **Markdown-Powered Help:** Loads clean and readable help docs directly from Markdown files.
 - **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
@@ -52,7 +52,7 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 
 > [!NOTE]
 > - When installed globally via NPM (`npm install -g smapi-launcher`), the Rust toolchain is not required, as the package ships with the pre-compiled binary (`launcher.bin`).
-> - On Linux, the `patch` utility (`sudo apt-get install patch`) is required only if applying the multiplayer compatibility fix.
+> - On Linux, the `patch` utility (`sudo apt-get install patch`) is required only if applying the multiplayer compatibility patch.
 
 ### Installation
 

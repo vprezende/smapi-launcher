@@ -61,6 +61,7 @@ export default async function applyPatch(folderPath) {
     ].every(Boolean);
 
     if (isMultiplayerSuccess) {
+
       const mpMessage = `${pc.green(checkLabel)} Multiplayer patch applied successfully`;
       const mpLine = indent(mpMessage, 1);
 
@@ -73,6 +74,7 @@ export default async function applyPatch(folderPath) {
     ].every(Boolean);
 
     if (isMultiplayerFailed) {
+
       const mpMessage = `${pc.red(crossLabel)} Multiplayer patch failed`;
       const mpLine = indent(mpMessage, 1);
 
@@ -119,6 +121,45 @@ export default async function applyPatch(folderPath) {
       stdout.write(verifyFolderLine);
     }
 
+    const isBothMissing = [
+      platform === 'linux',
+      mpResult === 'MISSING_FILES_AND_COMMAND'
+    ].every(Boolean);
+
+    if (isBothMissing) {
+      const warningLabel = `${emoji('warning')} Warning:`;
+
+      const skippedMessage = `${emoji('bullet')} Linux Multiplayer patch was skipped.`;
+      const missingFileMessage = `${emoji('bullet')} No 'libGalaxy' libraries were found.`;
+      const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
+      const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
+
+      const warningHeader = `${pc.yellow(warningLabel)} Required files and 'patch' command were not found.`;
+
+      const warningLine = indent(warningHeader, 1);
+      const skippedLine = indent(skippedMessage, 2);
+      const missingFileLine = indent(missingFileMessage, 2);
+      const verifyFolderLine = indent(verifyFolderMessage, 2);
+      const installLine = indent(installMessage, 2);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      stdout.write(warningLine);
+
+      stdout.write('\n');
+      stdout.write(skippedLine);
+
+      stdout.write('\n');
+      stdout.write(missingFileLine);
+
+      stdout.write('\n');
+      stdout.write(verifyFolderLine);
+
+      stdout.write('\n');
+      stdout.write(installLine);
+    }
+
     const isFilesMissing = [
       platform === 'linux',
       mpResult === 'MISSING_FILES'
@@ -127,7 +168,7 @@ export default async function applyPatch(folderPath) {
     if (isFilesMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const skippedMessage = `${emoji('bullet')} Linux Multiplayer patch was skipped.`;
+      const skippedMessage = `${emoji('bullet')} Linux multiplayer patch was skipped.`;
       const missingFileMessage = `${emoji('bullet')} No 'libGalaxy' libraries were found.`;
       const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
 
@@ -161,7 +202,7 @@ export default async function applyPatch(folderPath) {
     if (isCommandMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const skippedMessage = `${emoji('bullet')} Linux Multiplayer patch was skipped.`;
+      const skippedMessage = `${emoji('bullet')} Linux multiplayer fix was skipped.`;
       const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
 
       const warningHeader = `${pc.yellow(warningLabel)} 'patch' command was not found.`;
@@ -184,13 +225,14 @@ export default async function applyPatch(folderPath) {
 
     stdout.write('\n');
     stdout.write('\n');
-
+    
     stdout.write(pathLine);
 
     stdout.write('\n');
     stdout.write('\n');
 
   } catch (error) {
+
     const errorLine = indent(error.message, 1);
 
     stderr.write('\n');
