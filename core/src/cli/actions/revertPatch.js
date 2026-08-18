@@ -108,6 +108,7 @@ export default async function revertPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write('\n');
+
       stdout.write(warningLine);
 
       stdout.write('\n');
@@ -120,6 +121,45 @@ export default async function revertPatch(folderPath) {
       stdout.write(verifyFolderLine);
     }
 
+    const isBothMissing = [
+      platform === 'linux',
+      mpResult === 'MISSING_FILES_AND_COMMAND'
+    ].every(Boolean);
+
+    if (isBothMissing) {
+      const warningLabel = `${emoji('warning')} Warning:`;
+
+      const skippedMessage = `${emoji('bullet')} Linux Multiplayer unpatch was skipped.`;
+      const missingFileMessage = `${emoji('bullet')} No 'libGalaxy' libraries were found.`;
+      const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
+      const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
+
+      const warningHeader = `${pc.yellow(warningLabel)} Required files and 'patch' command were not found.`;
+
+      const warningLine = indent(warningHeader, 1);
+      const skippedLine = indent(skippedMessage, 2);
+      const missingFileLine = indent(missingFileMessage, 2);
+      const verifyFolderLine = indent(verifyFolderMessage, 2);
+      const installLine = indent(installMessage, 2);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      stdout.write(warningLine);
+
+      stdout.write('\n');
+      stdout.write(skippedLine);
+
+      stdout.write('\n');
+      stdout.write(missingFileLine);
+
+      stdout.write('\n');
+      stdout.write(verifyFolderLine);
+
+      stdout.write('\n');
+      stdout.write(installLine);
+    }
+
     const isFilesMissing = [
       platform === 'linux',
       mpResult === 'MISSING_FILES'
@@ -128,7 +168,7 @@ export default async function revertPatch(folderPath) {
     if (isFilesMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const skippedMessage = `${emoji('bullet')} Linux multiplayer fix revert was skipped.`;
+      const skippedMessage = `${emoji('bullet')} Linux multiplayer unpatch was skipped.`;
       const missingFileMessage = `${emoji('bullet')} No 'libGalaxy' libraries were found.`;
       const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
 
@@ -141,6 +181,7 @@ export default async function revertPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write('\n');
+
       stdout.write(warningLine);
 
       stdout.write('\n');
@@ -172,6 +213,7 @@ export default async function revertPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write('\n');
+
       stdout.write(warningLine);
 
       stdout.write('\n');
@@ -183,6 +225,7 @@ export default async function revertPatch(folderPath) {
 
     stdout.write('\n');
     stdout.write('\n');
+    
     stdout.write(pathLine);
 
     stdout.write('\n');

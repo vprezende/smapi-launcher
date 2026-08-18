@@ -12,6 +12,7 @@ export default async function revertMultiplayer(folderPath) {
   ];
 
   let patchStatus = 'SUCCESS';
+  const command = 'patch';
 
   const existingLibraries = galaxyLibraries.filter(
     (fileName) => {
@@ -20,22 +21,46 @@ export default async function revertMultiplayer(folderPath) {
     }
   );
 
-  if (!existingLibraries.at(0)) {
+  const commandCheck = spawnSync(command, ['--version']);
+
+  const hasFiles = existingLibraries.at(0);
+  const hasCommand = !commandCheck.error;
+
+  const isBothMissing = [
+    !hasFiles,
+    !hasCommand
+  ].every(Boolean);
+
+  if (isBothMissing) {
+    patchStatus = 'MISSING_FILES_AND_COMMAND';
+  }
+
+  const isFilesMissing = [
+    !hasFiles,
+    hasCommand
+  ].every(Boolean);
+
+  if (isFilesMissing) {
     patchStatus = 'MISSING_FILES';
+  }
+
+  const isCommandMissing = [
+    hasFiles,
+    !hasCommand
+  ].every(Boolean);
+
+  if (isCommandMissing) {
+    patchStatus = 'MISSING_COMMAND';
+  }
+
+  if (patchStatus !== 'SUCCESS') {
+    return patchStatus;
   }
 
   for (const fileName of existingLibraries) {
     const libraryPath = path.join(folderPath, fileName);
     const patchArgs = ['--set-execstack', libraryPath];
-    
-    const result = spawnSync('patch', patchArgs);
-    const spawnError = result.error;
-    const errorCode = spawnError?.code;
-
-    if (errorCode === 'ENOENT') {
-      patchStatus = 'MISSING_COMMAND';
-      break;
-    }
+    spawnSync(command, patchArgs);
   }
 
   return patchStatus;
