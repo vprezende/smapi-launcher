@@ -12,14 +12,14 @@ import applyMultiplayer from './multiplayer/applyMultiplayer.js';
 
 export default async function applyPatch(folderPath) {
 
-  const plaforms = [
+  const platforms = [
     process.platform,
     'win32',
     'linux',
     'darwin',
   ];
 
-  const platform = plaforms.at(0);
+  const platform = platforms.at(0);
 
   const stdout = process.stdout;
   const stderr = process.stderr;
@@ -28,12 +28,12 @@ export default async function applyPatch(folderPath) {
 
     await fs.access(folderPath);
 
-    await applyGarbageCollector(folderPath);
+    const gcSuccess = await applyGarbageCollector(folderPath);
 
-    let missingCommand = false;
+    let mpResult = 'SUCCESS';
 
     if (platform === 'linux') {
-      missingCommand = await applyMultiplayer(folderPath);
+      mpResult = await applyMultiplayer(folderPath);
     }
 
     const checkLabel = `${emoji('check')} Status:`;
@@ -41,18 +41,26 @@ export default async function applyPatch(folderPath) {
 
     const statusLines = new Array();
 
-    const gcMessage = `${pc.green(checkLabel)} Garbage Collector patch applied successfully`;
-    const gcLine = indent(gcMessage, 1);
+    if (gcSuccess) {
+      const gcMessage = `${pc.green(checkLabel)} Garbage Collector patch applied successfully`;
+      const gcLine = indent(gcMessage, 1);
 
-    statusLines.push(gcLine);
+      statusLines.push(gcLine);
+    }
+
+    if (!gcSuccess) {
+      const gcMessage = `${pc.red(crossLabel)} Garbage Collector patch failed`;
+      const gcLine = indent(gcMessage, 1);
+
+      statusLines.push(gcLine);
+    }
 
     const isMultiplayerSuccess = [
       platform === 'linux',
-      !missingCommand
+      mpResult === 'SUCCESS'
     ].every(Boolean);
 
     if (isMultiplayerSuccess) {
-
       const mpMessage = `${pc.green(checkLabel)} Multiplayer patch applied successfully`;
       const mpLine = indent(mpMessage, 1);
 
@@ -61,11 +69,10 @@ export default async function applyPatch(folderPath) {
 
     const isMultiplayerFailed = [
       platform === 'linux',
-      missingCommand
+      mpResult !== 'SUCCESS'
     ].every(Boolean);
 
     if (isMultiplayerFailed) {
-
       const mpMessage = `${pc.red(crossLabel)} Multiplayer patch failed`;
       const mpLine = indent(mpMessage, 1);
 
@@ -83,11 +90,78 @@ export default async function applyPatch(folderPath) {
       stdout.write(statusLine);
     }
 
-    if (missingCommand) {
-      
+    if (!gcSuccess) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const skippedMessage = `${emoji('bullet')} Linux multiplayer fix was skipped.`;
+      const skippedMessage = `${emoji('bullet')} Garbage Collector patch was skipped.`;
+      const missingFileMessage = `${emoji('bullet')} No '.runtimeconfig.json' was found.`;
+      const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
+
+      const warningHeader = `${pc.yellow(warningLabel)} Required files were not found.`;
+
+      const warningLine = indent(warningHeader, 1);
+      const skippedLine = indent(skippedMessage, 2);
+      const missingFileLine = indent(missingFileMessage, 2);
+      const verifyFolderLine = indent(verifyFolderMessage, 2);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      stdout.write(warningLine);
+
+      stdout.write('\n');
+      stdout.write(skippedLine);
+
+      stdout.write('\n');
+      stdout.write(missingFileLine);
+
+      stdout.write('\n');
+      stdout.write(verifyFolderLine);
+    }
+
+    const isFilesMissing = [
+      platform === 'linux',
+      mpResult === 'MISSING_FILES'
+    ].every(Boolean);
+
+    if (isFilesMissing) {
+      const warningLabel = `${emoji('warning')} Warning:`;
+
+      const skippedMessage = `${emoji('bullet')} Linux Multiplayer patch was skipped.`;
+      const missingFileMessage = `${emoji('bullet')} No 'libGalaxy' libraries were found.`;
+      const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
+
+      const warningHeader = `${pc.yellow(warningLabel)} Required files were not found.`;
+
+      const warningLine = indent(warningHeader, 1);
+      const skippedLine = indent(skippedMessage, 2);
+      const missingFileLine = indent(missingFileMessage, 2);
+      const verifyFolderLine = indent(verifyFolderMessage, 2);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      stdout.write(warningLine);
+
+      stdout.write('\n');
+      stdout.write(skippedLine);
+
+      stdout.write('\n');
+      stdout.write(missingFileLine);
+
+      stdout.write('\n');
+      stdout.write(verifyFolderLine);
+    }
+
+    const isCommandMissing = [
+      platform === 'linux',
+      mpResult === 'MISSING_COMMAND'
+    ].every(Boolean);
+
+    if (isCommandMissing) {
+      const warningLabel = `${emoji('warning')} Warning:`;
+
+      const skippedMessage = `${emoji('bullet')} Linux Multiplayer patch was skipped.`;
       const installMessage = `${emoji('bullet')} Install it with: sudo apt-get install patch`;
 
       const warningHeader = `${pc.yellow(warningLabel)} 'patch' command was not found.`;
@@ -103,25 +177,20 @@ export default async function applyPatch(folderPath) {
 
       stdout.write('\n');
       stdout.write(skippedLine);
-      
+
       stdout.write('\n');
       stdout.write(installLine);
-      
-      stdout.write('\n');
-    }
-
-    if (isMultiplayerSuccess) {
-      stdout.write('\n');
     }
 
     stdout.write('\n');
+    stdout.write('\n');
+
     stdout.write(pathLine);
 
     stdout.write('\n');
     stdout.write('\n');
 
   } catch (error) {
-
     const errorLine = indent(error.message, 1);
 
     stderr.write('\n');

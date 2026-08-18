@@ -1,4 +1,5 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 
@@ -9,44 +10,19 @@ export default async function applyGarbageCollector(folderPath) {
     'Stardew Valley.runtimeconfig.json'
   ];
 
-  for (const fileName of targetFiles) {
+  const existingFiles = targetFiles.filter(
+    (fileName) => {
+      const filePath = path.join(folderPath, fileName);
+      return fs.existsSync(filePath);
+    }
+  );
+
+  for (const fileName of existingFiles) {
     
     const filePath = path.join(folderPath, fileName);
 
-    let parsedConfig;
-
-    try {
-      await fs.access(filePath);
-      const rawContent = await fs.readFile(filePath, 'utf-8');
-      parsedConfig = JSON.parse(rawContent);
-    } catch {
-      
-      parsedConfig = new Object();
-
-      const runtimeOptions = new Object();
-      runtimeOptions.tfm = 'net6.0';
-
-      const framework = new Object();
-      framework.name = 'Microsoft.NETCore.App';
-      framework.version = '6.0.0';
-      framework.rollForward = 'latestMinor';
-
-      runtimeOptions.includedFrameworks = new Array();
-      runtimeOptions.includedFrameworks.push(framework);
-
-      const tieredCompilation = 'System.Runtime.TieredCompilation';
-
-      const configMap = new Map();
-
-      const setMethod = configMap.set;
-      const setProperty = setMethod.bind(configMap);
-
-      setProperty(tieredCompilation, false);
-
-      runtimeOptions.configProperties = Object.fromEntries(configMap);
-
-      parsedConfig.runtimeOptions = runtimeOptions;
-    }
+    const rawContent = await fsp.readFile(filePath, 'utf-8');
+    const parsedConfig = JSON.parse(rawContent);
 
     parsedConfig.runtimeOptions ??= new Object();
 
@@ -67,7 +43,6 @@ export default async function applyGarbageCollector(folderPath) {
     );
 
     const setMethod = configMap.set;
-    
     const setProperty = setMethod.bind(configMap);
 
     setProperty(gcConcurrent, true);
@@ -84,6 +59,12 @@ export default async function applyGarbageCollector(folderPath) {
 
     const fileData = [filePath, formattedJson];
 
-    await fs.writeFile(...fileData, 'utf-8');
+    await fsp.writeFile(...fileData, 'utf-8');
   }
+
+  if (existingFiles.at(0)) {
+    return true;
+  }
+
+  return false;
 }
