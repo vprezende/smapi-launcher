@@ -1,34 +1,42 @@
+import fs from 'node:fs';
 import path from 'node:path';
-import util from 'node:util';
-import process from 'node:process';
 import childProcess from 'node:child_process';
 
-const execFile = childProcess.execFile;
-const execFileAsync = util.promisify(execFile);
+const spawnSync = childProcess.spawnSync;
 
 export default async function applyMultiplayer(folderPath) {
-
-  let missingCommand = false;
 
   const galaxyLibraries = [
     'libGalaxy64.so',
     'libGalaxyCSharpGlue.so'
   ];
 
-  for (const libraryName of galaxyLibraries) {
-    
-    const libraryPath = path.join(folderPath, libraryName);
+  let patchStatus = 'SUCCESS';
 
+  const existingLibraries = galaxyLibraries.filter(
+    (fileName) => {
+      const libraryPath = path.join(folderPath, fileName);
+      return fs.existsSync(libraryPath);
+    }
+  );
+
+  if (!existingLibraries.at(0)) {
+    patchStatus = 'MISSING_FILES';
+  }
+
+  for (const fileName of existingLibraries) {
+    const libraryPath = path.join(folderPath, fileName);
     const patchArgs = ['--clear-execstack', libraryPath];
+    
+    const result = spawnSync('patch', patchArgs);
+    const spawnError = result.error;
+    const errorCode = spawnError?.code;
 
-    try {
-      await execFileAsync('patch', patchArgs);
-    } catch (error) {
-      if (error.code === 'ENOENT') {
-        missingCommand = true;
-      }
+    if (errorCode === 'ENOENT') {
+      patchStatus = 'MISSING_COMMAND';
+      break;
     }
   }
 
-  return missingCommand;
+  return patchStatus;
 }
