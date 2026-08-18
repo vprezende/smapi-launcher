@@ -95,7 +95,7 @@ export default async function revertPatch(folderPath) {
     if (!gcSuccess) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
-      const skippedMessage = `${emoji('bullet')} Garbage Collector patch revert was skipped.`;
+      const skippedMessage = `${emoji('bullet')} Garbage Collector unpatch was skipped.`;
       const missingFileMessage = `${emoji('bullet')} No '.runtimeconfig.json' was found.`;
       const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
 
@@ -225,7 +225,7 @@ export default async function revertPatch(folderPath) {
 
     stdout.write('\n');
     stdout.write('\n');
-    
+
     stdout.write(pathLine);
 
     stdout.write('\n');
