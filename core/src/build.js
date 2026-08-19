@@ -9,7 +9,7 @@ import emoji from './cli/utils/emoji.js';
 
 import indent from './cli/utils/indent.js';
 
-const main = (() => {
+const build = (() => {
   
   const stdout = process.stdout;
 

@@ -4,13 +4,13 @@
   "description": "A fast CLI tool to create silent launchers and apply essential patches for SMAPI (Stardew Valley).",
   "license": "MIT",
   "type": "module",
-  "bin": "core/src/cli/index.js",
+  "bin": "core/src/cli/main.js",
   "files": [
     "core/src/cli",
     "core/src/bin"
   ],
   "scripts": {
-    "smapi-launcher": "node core/src/cli/index.js",
+    "smapi-launcher": "node core/src/cli/main.js",
     "build": "node core/src/build.js",
     "clean:cargo": "rm -rf core/target core/Cargo.lock",
     "clean": "yarn clean:cargo && rm -rf core/src/bin"
