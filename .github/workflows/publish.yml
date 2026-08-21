@@ -1,0 +1,50 @@
+name: Publish to NPM
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Clean legacy npm config
+        run: npm config delete always-auth --location=user
+
+      - name: Update package lists
+        run: sudo apt-get update
+
+      - name: Install MinGW-w64
+        run: sudo apt-get install -y gcc-mingw-w64-x86-64
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-gnu
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Rust binary
+        run: yarn build
+
+      - name: Prepare NPM documentation
+        run: cp .github/docs/README.md README.md
+
+      - name: Publish package to NPM with Provenance
+        run: npm publish --access public --provenance

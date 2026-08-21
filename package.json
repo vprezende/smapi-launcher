@@ -1,22 +1,50 @@
 {
   "name": "smapi-launcher",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "description": "A fast CLI tool to create silent launchers and apply essential patches for SMAPI (Stardew Valley).",
+  "keywords": [
+    "stardew-valley",
+    "smapi",
+    "launcher",
+    "mods",
+    "patch",
+    "unpatch",
+    "garbage-collector",
+    "multiplayer",
+    "silent-launcher",
+    "cli"
+  ],
+  "homepage": "https://github.com/vprezende/smapi-launcher",
+  "bugs": {
+    "url": "https://github.com/vprezende/smapi-launcher/issues"
+  },
   "license": "MIT",
+  "author": "Vinicius Rezende",
   "type": "module",
-  "bin": "core/src/cli/main.js",
   "files": [
     "core/src/cli",
     "core/src/bin"
   ],
+  "bin": {
+    "smapi-launcher": "core/src/cli/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vprezende/smapi-launcher.git"
+  },
   "scripts": {
     "smapi-launcher": "node core/src/cli/main.js",
     "build": "node core/src/build.js",
+    "sync": "node core/src/sync.js",
     "clean:cargo": "rm -rf core/target core/Cargo.lock",
     "clean": "yarn clean:cargo && rm -rf core/src/bin"
   },
   "dependencies": {
     "node-emoji": "^2.2.0",
     "picocolors": "^1.1.1"
+  },
+  "engines": {
+    "node": "24.19.0",
+    "npm": "11.17.0"
   }
 }

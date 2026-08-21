@@ -3,6 +3,7 @@
 import process from 'node:process';
 
 import printHelpText from './markdown/printHelpText.js';
+import printVersion from './utils/printVersion.js';
 
 import parseInput from './input/parseInput.js';
 
@@ -22,6 +23,11 @@ const main = (async () => {
   
   const positionals = parsed.positionals ?? [];
   const command = positionals[0];
+
+  if (options.version) {
+    await printVersion();
+    process.exit(0);
+  }
 
   if (options.help) {
     await printHelpText();

@@ -37,12 +37,14 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-- **Essential Performance & Compatibility Patches:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector and Linux multiplayer compatibility patches (`libGalaxy64.so`) to eliminate mod stuttering and ensure smooth gameplay.
-- **Separate Build and CLI Scripts:** Clear separation between compiling the binary (`yarn build`) and generating launchers (`smapi-launcher`).
-- **Markdown-Powered Help:** Loads clean and readable help docs directly from Markdown files.
-- **Formatted Terminal Output:** Clean colored terminal feedback with status icons, custom emoji helpers, and path summaries.
+- **Performance Optimizations:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
+- **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, including Linux multiplayer (`libGalaxy64.so`) support.
 
-## 🛠️ Getting Started
+---
+
+## 💻 Building from Source (Developers)
+
+If you want to contribute or build the launcher locally from source:
 
 ### Prerequisites
 
@@ -51,58 +53,101 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 - 🦀 Toolchain: [Rust](https://rustup.rs/)
 
 > [!NOTE]
-> - When installed globally via NPM (`npm install -g smapi-launcher`), the Rust toolchain is not required, as the package ships with the pre-compiled binary (`launcher.bin`).
-> - On Linux, the `patch` utility (`sudo apt-get install patch`) is required only if applying the multiplayer compatibility patch.
+> - **NPM Users:** The Rust toolchain and MinGW-w64 are not required when installing globally via 
+> NPM (`npm install -g smapi-launcher`), as the package ships with the pre-compiled binary (`launcher.bin`).
+> - **Linux Developers:** Cross-compiling the binary (`yarn build`) requires 
+> MinGW-w64 (`sudo apt-get install gcc-mingw-w64-x86-64`).
+> - **Linux Compatibility:** The `patch` utility (`sudo apt-get install patch`) is required only when 
+> applying or reverting the multiplayer compatibility patch (`libGalaxy64.so`).
 
-### Installation
+### Development Steps
 
 1. Clone the repository:
 
 ```bash
 git clone https://github.com/vprezende/smapi-launcher.git
-```
-
-2. Navigate to the project directory:
-
-```bash
 cd smapi-launcher
 ```
 
-3. Install dependencies:
+2. Install dependencies:
 
 ```bash
 yarn install
 ```
 
-4. Display usage information:
+3. Synchronize local environment versions:
 
 ```bash
-yarn smapi-launcher --help
+yarn sync
 ```
 
-5. Compile the binary (Developers only):
+4. Compile the native binary:
 
 ```bash
 yarn build
 ```
 
-6. Generate a launcher executable:
+5. Test the local CLI:
 
 ```bash
-yarn smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
+yarn smapi-launcher --help
 ```
 
-7. Apply essential performance and compatibility patches:
+---
+
+## 📦 Installation
+
+Install **SMAPI Launcher** globally using your preferred package manager (pre-compiled native binaries included):
 
 ```bash
-yarn smapi-launcher patch -p /path/to/Stardew\ Valley
+npm install -g smapi-launcher
 ```
-
-8. Revert applied patches:
 
 ```bash
-yarn smapi-launcher unpatch -p /path/to/Stardew\ Valley
+yarn global add smapi-launcher
 ```
+
+Or run directly without installation using **npx**:
+
+```bash
+npx smapi-launcher --help
+```
+
+---
+
+## 🚀 Usage
+
+1. Generate a silent launcher executable:
+
+```bash
+smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
+```
+
+2. Apply essential performance and compatibility patches:
+
+```bash
+smapi-launcher patch -p /path/to/Stardew\ Valley
+```
+
+3. Revert applied patches:
+
+```bash
+smapi-launcher unpatch -p /path/to/Stardew\ Valley
+```
+
+4. Display version information:
+
+```bash
+smapi-launcher --version
+```
+
+5. Display usage information:
+
+```bash
+smapi-launcher --help
+```
+
+---
 
 ## 🤝 How to Contribute
 

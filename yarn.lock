@@ -61,7 +61,7 @@ __metadata:
     node-emoji: "npm:^2.2.0"
     picocolors: "npm:^1.1.1"
   bin:
-    smapi-launcher: core/src/cli/index.js
+    smapi-launcher: core/src/cli/main.js
   languageName: unknown
   linkType: soft
 

@@ -21,15 +21,11 @@ export default async function createLauncher(folderPath, output) {
     
     await fs.access(smapiPath);
 
-    const rootDirectory = process.cwd();
-  
-    const coreDirectory = path.join(rootDirectory, 'core');
-    const sourceDirectory = path.join(coreDirectory, 'src');
+    const meta = import.meta;
 
-    const binDirectory = path.join(sourceDirectory, 'bin');
-    const launcherBin = path.join(binDirectory, 'launcher.bin');
+    const launcherBinUrl = new URL('../../bin/launcher.bin', meta.url);
 
-    await fs.copyFile(launcherBin, launcherPath);
+    await fs.copyFile(launcherBinUrl, launcherPath);
 
     const displayPath = formatPath(launcherPath);
 
