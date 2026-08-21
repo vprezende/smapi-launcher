@@ -47,4 +47,4 @@ jobs:
         run: cp .github/docs/README.md README.md
 
       - name: Publish package to NPM with Provenance
-        run: npm publish --access public --provenance
+        run: npm publish --provenance
