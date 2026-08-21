@@ -40,8 +40,6 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 - **Performance Optimizations:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
 - **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, including Linux multiplayer (`libGalaxy64.so`) support.
 
----
-
 ## 💻 Building from Source (Developers)
 
 If you want to contribute or build the launcher locally from source:
@@ -92,8 +90,6 @@ yarn build
 ```bash
 yarn smapi-launcher --help
 ```
-
----
 
 ## 📦 Installation
 
@@ -146,8 +142,6 @@ smapi-launcher --version
 ```bash
 smapi-launcher --help
 ```
-
----
 
 ## 🤝 How to Contribute
 
