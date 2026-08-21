@@ -78,25 +78,25 @@ git clone https://github.com/vprezende/smapi-launcher.git
 cd smapi-launcher
 ```
 
-2. Install dependencies:
+3. Install dependencies:
 
 ```bash
 yarn install
 ```
 
-3. Synchronize local environment versions:
+4. Synchronize local environment versions:
 
 ```bash
 yarn sync
 ```
 
-4. Compile the native binary:
+5. Compile the native binary:
 
 ```bash
 yarn build
 ```
 
-5. Test the local CLI:
+6. Test the local CLI:
 
 ```bash
 yarn smapi-launcher --help
