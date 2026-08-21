@@ -70,6 +70,11 @@ If you want to contribute or build the launcher locally from source:
 
 ```bash
 git clone https://github.com/vprezende/smapi-launcher.git
+```
+
+2. Navigate to the project directory:
+
+```bash
 cd smapi-launcher
 ```
 
