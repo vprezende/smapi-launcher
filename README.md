@@ -39,7 +39,9 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
+
 - **Performance Optimizations:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
+
 - **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, including Linux multiplayer (`libGalaxy64.so`) support.
 
 ---
