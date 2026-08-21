@@ -9,6 +9,8 @@ import emoji from './cli/utils/emoji.js';
 
 import indent from './cli/utils/indent.js';
 
+const spawnSync = childProcess.spawnSync;
+
 const build = (() => {
   
   const stdout = process.stdout;
@@ -53,12 +55,16 @@ const build = (() => {
   stdout.write('\n');
   stdout.write('\n');
 
-  childProcess.spawnSync(
-    'cargo',
-    compilerArgs, {
-      stdio: 'inherit'
-    }
-  );
+  const spawnOptions = {
+    stdio: 'inherit'
+  };
+
+  const compilerOptions = [
+    compilerArgs,
+    spawnOptions
+  ];
+
+  spawnSync('cargo', ...compilerOptions);
 
   fs.copyFileSync(exePath, binPath);
 

@@ -18,6 +18,7 @@ export default async function parseInput(args) {
 
     options.path = createOption('string', 'p');
     options.output = createOption('string', 'o');
+    options.version = createOption('boolean', 'v');
     options.help = createOption('boolean', 'h');
 
     const parseConfig = new Object();

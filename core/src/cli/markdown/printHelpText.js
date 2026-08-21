@@ -30,4 +30,5 @@ export default async function printHelpText() {
   stdout.write(indentedHelp);
   
   stdout.write('\n');
+  stdout.write('\n');
 }
