@@ -31,6 +31,8 @@
 > A fast CLI tool built to create native silent launchers and apply essential patches for 
 > SMAPI (Stardew Valley).
 
+---
+
 ## 🎮 What is SMAPI Launcher?
 
 **SMAPI Launcher** is a fast CLI tool built to create native silent launchers and apply essential patches for 
