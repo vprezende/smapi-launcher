@@ -53,12 +53,12 @@ If you want to contribute or build the launcher locally from source:
 - ⚙️ Runtime: [Node.js](https://nodejs.org/)
 - 📦 Package Manager: [Yarn](https://yarnpkg.com/)
 - 🦀 Toolchain: [Rust](https://rustup.rs/)
+- 🛠️ Compiler: [MinGW-w64](https://www.mingw-w64.org/)
 
 > [!NOTE]
 > - **NPM Users:** The Rust toolchain and MinGW-w64 are not required when installing globally via 
 > NPM (`npm install -g smapi-launcher`), as the package ships with the pre-compiled binary (`launcher.bin`).
-> - **Linux Developers:** Cross-compiling the binary (`yarn build`) requires 
-> MinGW-w64 (`sudo apt-get install gcc-mingw-w64-x86-64`).
+> - **Windows Developers:** Compiles natively without requiring MinGW-w64.
 > - **Linux Compatibility:** The `patch` utility (`sudo apt-get install patch`) is required only when 
 > applying or reverting the multiplayer compatibility patch (`libGalaxy64.so`).
 
