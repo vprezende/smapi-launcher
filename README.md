@@ -34,11 +34,15 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
   </li>
 </ul>
 
+---
+
 ## ✨ Features
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
 - **Performance Optimizations:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
 - **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, including Linux multiplayer (`libGalaxy64.so`) support.
+
+---
 
 ## 💻 Building from Source (Developers)
 
@@ -90,6 +94,8 @@ yarn build
 ```bash
 yarn smapi-launcher --help
 ```
+
+---
 
 ## 📦 Installation
 
@@ -143,6 +149,8 @@ smapi-launcher --version
 smapi-launcher --help
 ```
 
+---
+
 ## 🤝 How to Contribute
 
 Contributions are welcome! If you would like to contribute to the project, follow the steps below:
@@ -153,6 +161,8 @@ Contributions are welcome! If you would like to contribute to the project, follo
 4. Push the branch (`git push origin feature/new-feature`).
 5. Open a Pull Request.
 
+---
+
 ## ☕ Support
 
 If you find **SMAPI Launcher** helpful, consider supporting the development! Your support helps maintain the project, fuels my late-night coding sessions, and makes up for the countless nights of sleep lost while building it. 👇
@@ -161,11 +171,15 @@ If you find **SMAPI Launcher** helpful, consider supporting the development! You
   <img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="Buy Me A Coffee" width="150" height="35">
 </a>
 
+---
+
 ## 🙏 Acknowledgements
 
 - **Stardew Valley:** A heart-full thank you to Eric Barone ([@ConcernedApe](https://twitter.com/ConcernedApe)) for this masterpiece of a game.
 - **SMAPI:** A huge thank you to [@Pathoschild](https://github.com/Pathoschild) for enabling the amazing Stardew Valley modding ecosystem.
 - **Banner:** Special thanks to [@Beatzoid](https://www.reddit.com/user/Bratzoid/) for creating and sharing this incredible pixel artwork.
+
+---
 
 ## 📜 License
 
