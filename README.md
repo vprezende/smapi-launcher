@@ -109,8 +109,6 @@ Or run directly without installation using **npx**:
 npx smapi-launcher --help
 ```
 
----
-
 ## 🚀 Usage
 
 1. Generate a silent launcher executable:
