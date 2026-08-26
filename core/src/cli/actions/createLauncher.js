@@ -4,10 +4,10 @@ import path from 'node:path';
 import process from 'node:process';
 
 import pc from 'picocolors';
-import emoji from '../utils/emoji.js';
+import emoji from '../../utils/emoji.js';
 
 import formatPath from '../utils/formatPath.js';
-import indent from '../utils/indent.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
 export default async function createLauncher(folderPath, output) {
 

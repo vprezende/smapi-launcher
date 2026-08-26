@@ -1,7 +1,7 @@
 import process from 'node:process';
 
 import loadMarkdown from './loadMarkdown.js';
-import indent from '../utils/indent.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
 export default async function printHelpText() {
   

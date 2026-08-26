@@ -2,10 +2,10 @@ import fs from 'node:fs/promises';
 import process from 'node:process';
 
 import pc from 'picocolors';
-import emoji from '../utils/emoji.js';
+import emoji from '../../utils/emoji.js';
 
 import formatPath from '../utils/formatPath.js';
-import indent from '../utils/indent.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
 import applyGarbageCollector from './garbageCollector/applyGarbageCollector.js';
 import applyMultiplayer from './multiplayer/applyMultiplayer.js';

@@ -9,10 +9,10 @@
   [![discord][discord-badge]][discord]
 </div>
 
-[version-badge]: https://img.shields.io/github/package-json/v/vprezende/smapi-launcher?color=blue&prefix=
+[version-badge]: https://img.shields.io/badge/version-v1.0.0-blue.svg
 
-[npm-badge]: https://img.shields.io/badge/npm-v11.17.0-blue.svg
-[node-badge]: https://img.shields.io/badge/node-v24.19.0-blue.svg
+[npm-badge]: https://img.shields.io/badge/npm-v11.19.0-blue.svg
+[node-badge]: https://img.shields.io/badge/node-v24.20.0-blue.svg
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-green.svg
 

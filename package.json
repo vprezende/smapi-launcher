@@ -1,6 +1,6 @@
 {
   "name": "smapi-launcher",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A fast CLI tool to create silent launchers and apply essential patches for SMAPI (Stardew Valley).",
   "keywords": [
     "stardew-valley",
@@ -23,10 +23,12 @@
   "type": "module",
   "files": [
     "core/src/cli",
-    "core/src/bin"
+    "core/src/bin",
+    "core/src/utils"
   ],
-  "bin": {
-    "smapi-launcher": "core/src/cli/main.js"
+  "bin": "core/src/cli/main.js",
+  "exports": {
+    "./utils/*": "./core/src/utils/*"
   },
   "repository": {
     "type": "git",
@@ -34,17 +36,20 @@
   },
   "scripts": {
     "smapi-launcher": "node core/src/cli/main.js",
-    "build": "node core/src/build.js",
-    "sync": "node core/src/sync.js",
+    "build": "node core/src/scripts/build/main.js",
+    "sync": "node core/src/scripts/sync/main.js",
+    "oidc": "node core/src/scripts/oidc/main.js",
     "clean:cargo": "rm -rf core/target core/Cargo.lock",
     "clean": "yarn clean:cargo && rm -rf core/src/bin"
   },
   "dependencies": {
+    "@actions/core": "^3.0.1",
+    "ansis": "^4.3.1",
     "node-emoji": "^2.2.0",
     "picocolors": "^1.1.1"
   },
   "engines": {
-    "node": "24.19.0",
-    "npm": "11.17.0"
+    "node": "24.20.0",
+    "npm": "11.19.0"
   }
 }

@@ -11,9 +11,9 @@ import createLauncher from './actions/createLauncher.js';
 import applyPatch from './actions/applyPatch.js';
 import revertPatch from './actions/revertPatch.js';
 
-import indent from './utils/indent.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
-const main = (async () => {
+void (async () => {
   
   const stderr = process.stderr;
 

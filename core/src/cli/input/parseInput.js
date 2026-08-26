@@ -2,7 +2,7 @@ import util from 'node:util';
 import process from 'node:process';
 
 import createOption from './createOption.js';
-import indent from '../utils/indent.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
 export default async function parseInput(args) {
 
