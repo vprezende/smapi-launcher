@@ -1,6 +1,6 @@
 {
   "name": "smapi-launcher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A fast CLI tool to create silent launchers and apply essential patches for SMAPI (Stardew Valley).",
   "keywords": [
     "stardew-valley",
