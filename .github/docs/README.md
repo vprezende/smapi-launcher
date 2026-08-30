@@ -9,7 +9,7 @@
   [![discord][discord-badge]][discord]
 </div>
 
-[version-badge]: https://img.shields.io/badge/version-v1.0.4-blue.svg
+[version-badge]: https://img.shields.io/badge/version-v1.0.5-blue.svg
 
 [npm-badge]: https://img.shields.io/badge/npm-v11.19.0-blue.svg
 [node-badge]: https://img.shields.io/badge/node-v24.20.0-blue.svg
@@ -40,9 +40,6 @@ SMAPI (Stardew Valley).
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional 
 `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
-  
-- **Performance Optimizations:** Easily apply or revert .NET runtime configuration(`runtimeconfig.json`) optimizations 
-with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
   
 - **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, 
 including Linux multiplayer (`libGalaxy64.so`) support.
@@ -77,7 +74,7 @@ npx smapi-launcher --help
 smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
 ```
 
-2. Apply essential performance and compatibility patches:
+2. Apply essential compatibility patches:
 
 ```bash
 smapi-launcher patch -p /path/to/Stardew\ Valley
@@ -118,7 +115,7 @@ smapi-launcher --help
         <code>patch</code>
       </td>
       <td>
-        Apply essential performance (.NET GC) and compatibility patches.
+        Apply essential compatibility patches.
       </td>
     </tr>
     <tr>
@@ -126,7 +123,7 @@ smapi-launcher --help
         <code>unpatch</code>
       </td>
       <td>
-        Revert applied performance (.NET GC) and compatibility patches.
+        Revert applied compatibility patches.
       </td>
     </tr>
   </tbody>

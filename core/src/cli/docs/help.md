@@ -4,8 +4,8 @@ Usage:
   smapi-launcher unpatch -p <path>
 
 Commands:
-  patch           Apply essential performance (.NET GC) and compatibility patches.
-  unpatch         Revert applied performance (.NET GC) and compatibility patches.
+  patch           Apply essential compatibility patches.
+  unpatch         Revert applied compatibility patches.
 
 Options:
   -p, --path      Path to the Stardew Valley folder.

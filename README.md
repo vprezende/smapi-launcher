@@ -40,8 +40,6 @@ SMAPI Launcher is built with performance, simplicity, and modern native applicat
 
 - **Silent Executable Launcher:** Generates native executables compiled with `CREATE_NO_WINDOW` and conditional `windows_subsystem = "windows"`, running SMAPI without opening black command prompt/terminal windows.
 
-- **Performance Optimizations:** Easily apply or revert .NET runtime configuration (`runtimeconfig.json`) optimizations with Concurrent Garbage Collector to eliminate stuttering and ensure smooth gameplay.
-
 - **Compatibility Patches:** Easily apply or revert essential patches to ensure stable game compatibility, including Linux multiplayer (`libGalaxy64.so`) support.
 
 ---
@@ -130,7 +128,7 @@ npx smapi-launcher --help
 smapi-launcher -p /path/to/Stardew\ Valley -o LaunchSMAPI
 ```
 
-2. Apply essential performance and compatibility patches:
+2. Apply essential compatibility patches:
 
 ```bash
 smapi-launcher patch -p /path/to/Stardew\ Valley

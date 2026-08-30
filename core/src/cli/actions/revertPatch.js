@@ -3,11 +3,10 @@ import process from 'node:process';
 
 import pc from 'picocolors';
 import emoji from '../../utils/emoji.js';
+import indent from '../../utils/indent.js';
 
 import formatPath from '../utils/formatPath.js';
-import indent from 'smapi-launcher/utils/indent.js';
 
-import revertGarbageCollector from './garbageCollector/revertGarbageCollector.js';
 import revertMultiplayer from './multiplayer/revertMultiplayer.js';
 
 export default async function revertPatch(folderPath) {
@@ -28,39 +27,46 @@ export default async function revertPatch(folderPath) {
 
     await fs.access(folderPath);
 
-    const gcSuccess = await revertGarbageCollector(folderPath);
+    const displayPath = formatPath(folderPath);
 
-    let mpResult = 'SUCCESS';
+    const pathLabel = `${emoji('file_folder')} Path:`;
+    const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
+    const pathLine = indent(pathMessage, 1);
 
-    if (platform === 'linux') {
-      mpResult = await revertMultiplayer(folderPath);
+    if (platform !== 'linux') {
+
+      const warningLabel = `${emoji('warning')} Warning:`;
+      const warningHeader = pc.yellow(warningLabel);
+
+      const targetPlatform = `${platform} platform.`;
+      const messageText = `No patches available for ${targetPlatform}`;
+
+      const warningMessage = `${warningHeader} ${messageText}`;
+
+      const warningLine = indent(warningMessage, 1);
+
+      stdout.write('\n');
+      stdout.write(warningLine);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      stdout.write(pathLine);
+
+      stdout.write('\n');
+      stdout.write('\n');
+
+      return;
     }
+
+    const mpResult = await revertMultiplayer(folderPath);
 
     const checkLabel = `${emoji('check')} Status:`;
     const crossLabel = `${emoji('cross')} Status:`;
 
     const statusLines = new Array();
 
-    if (gcSuccess) {
-      const gcMessage = `${pc.green(checkLabel)} Garbage Collector patch removed successfully`;
-      const gcLine = indent(gcMessage, 1);
-
-      statusLines.push(gcLine);
-    }
-
-    if (!gcSuccess) {
-      const gcMessage = `${pc.red(crossLabel)} Garbage Collector patch removal failed`;
-      const gcLine = indent(gcMessage, 1);
-
-      statusLines.push(gcLine);
-    }
-
-    const isMultiplayerSuccess = [
-      platform === 'linux',
-      mpResult === 'SUCCESS'
-    ].every(Boolean);
-
-    if (isMultiplayerSuccess) {
+    if (mpResult === 'SUCCESS') {
 
       const mpMessage = `${pc.green(checkLabel)} Multiplayer patch removed successfully`;
       const mpLine = indent(mpMessage, 1);
@@ -68,12 +74,7 @@ export default async function revertPatch(folderPath) {
       statusLines.push(mpLine);
     }
 
-    const isMultiplayerFailed = [
-      platform === 'linux',
-      mpResult !== 'SUCCESS'
-    ].every(Boolean);
-
-    if (isMultiplayerFailed) {
+    if (mpResult !== 'SUCCESS') {
 
       const mpMessage = `${pc.red(crossLabel)} Multiplayer patch removal failed`;
       const mpLine = indent(mpMessage, 1);
@@ -81,52 +82,13 @@ export default async function revertPatch(folderPath) {
       statusLines.push(mpLine);
     }
 
-    const displayPath = formatPath(folderPath);
-
-    const pathLabel = `${emoji('file_folder')} Path:`;
-    const pathMessage = `${pc.green(pathLabel)} ${displayPath}`;
-    const pathLine = indent(pathMessage, 1);
-
     for (const statusLine of statusLines) {
       stdout.write('\n');
       stdout.write(statusLine);
     }
 
-    if (!gcSuccess) {
-      const warningLabel = `${emoji('warning')} Warning:`;
+    if (mpResult === 'MISSING_FILES_AND_COMMAND') {
 
-      const skippedMessage = `${emoji('bullet')} Garbage Collector unpatch was skipped.`;
-      const missingFileMessage = `${emoji('bullet')} No '.runtimeconfig.json' was found.`;
-      const verifyFolderMessage = `${emoji('bullet')} Check if the game path is correct.`;
-
-      const warningHeader = `${pc.yellow(warningLabel)} Required files were not found.`;
-
-      const warningLine = indent(warningHeader, 1);
-      const skippedLine = indent(skippedMessage, 2);
-      const missingFileLine = indent(missingFileMessage, 2);
-      const verifyFolderLine = indent(verifyFolderMessage, 2);
-
-      stdout.write('\n');
-      stdout.write('\n');
-
-      stdout.write(warningLine);
-
-      stdout.write('\n');
-      stdout.write(skippedLine);
-
-      stdout.write('\n');
-      stdout.write(missingFileLine);
-
-      stdout.write('\n');
-      stdout.write(verifyFolderLine);
-    }
-
-    const isBothMissing = [
-      platform === 'linux',
-      mpResult === 'MISSING_FILES_AND_COMMAND'
-    ].every(Boolean);
-
-    if (isBothMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
       const skippedMessage = `${emoji('bullet')} Linux Multiplayer unpatch was skipped.`;
@@ -160,12 +122,8 @@ export default async function revertPatch(folderPath) {
       stdout.write(installLine);
     }
 
-    const isFilesMissing = [
-      platform === 'linux',
-      mpResult === 'MISSING_FILES'
-    ].every(Boolean);
+    if (mpResult === 'MISSING_FILES') {
 
-    if (isFilesMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
       const skippedMessage = `${emoji('bullet')} Linux multiplayer unpatch was skipped.`;
@@ -194,12 +152,8 @@ export default async function revertPatch(folderPath) {
       stdout.write(verifyFolderLine);
     }
 
-    const isCommandMissing = [
-      platform === 'linux',
-      mpResult === 'MISSING_COMMAND'
-    ].every(Boolean);
+    if (mpResult === 'MISSING_COMMAND') {
 
-    if (isCommandMissing) {
       const warningLabel = `${emoji('warning')} Warning:`;
 
       const skippedMessage = `${emoji('bullet')} Linux multiplayer fix revert was skipped.`;
