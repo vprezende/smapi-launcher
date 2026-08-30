@@ -9,7 +9,7 @@
   [![discord][discord-badge]][discord]
 </div>
 
-[version-badge]: https://img.shields.io/badge/version-v1.0.5-blue.svg
+[version-badge]: https://img.shields.io/badge/version-v1.1.0-blue.svg
 
 [npm-badge]: https://img.shields.io/badge/npm-v11.19.0-blue.svg
 [node-badge]: https://img.shields.io/badge/node-v24.20.0-blue.svg
