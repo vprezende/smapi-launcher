@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "smapi-launcher/utils/*": ["./core/src/utils/*"]
+    }
+  },
+  "include": [
+    "core/src/**/*"
+  ]
+}

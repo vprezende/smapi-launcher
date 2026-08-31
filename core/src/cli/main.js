@@ -3,7 +3,7 @@
 import process from 'node:process';
 
 import printHelpText from './markdown/printHelpText.js';
-import printVersion from './utils/printVersion.js';
+import printVersion from './markdown/printVersion.js';
 
 import parseInput from './input/parseInput.js';
 

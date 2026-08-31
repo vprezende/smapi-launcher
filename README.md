@@ -82,19 +82,13 @@ cd smapi-launcher
 yarn install
 ```
 
-4. Synchronize local environment versions:
-
-```bash
-yarn sync
-```
-
-5. Compile the native binary:
+4. Compile the native binary:
 
 ```bash
 yarn build
 ```
 
-6. Test the local CLI:
+5. Test the local CLI:
 
 ```bash
 yarn smapi-launcher --help

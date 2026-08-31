@@ -4,7 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 import pc from 'picocolors';
-import emoji from '../../utils/emoji.js';
+import emoji from 'smapi-launcher/utils/emoji.js';
 
 import formatPath from '../utils/formatPath.js';
 import indent from 'smapi-launcher/utils/indent.js';

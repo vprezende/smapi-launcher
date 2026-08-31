@@ -29,12 +29,19 @@ void (async () => {
   let latestPublishedVersion = null;
 
   try {
+
     const registryResponse = await fetch(registryUrl);
+    
     if (registryResponse.ok) {
+
       const registryData = await registryResponse.json();
+      
       const distTagsProperty = registryData['dist-tags'];
+      
       const distTags = distTagsProperty ?? {};
+      
       latestPublishedVersion = distTags.latest ?? null;
+
     }
   } catch {
     latestPublishedVersion = null;
@@ -51,13 +58,16 @@ void (async () => {
   }
 
   const displayStatus = `(${statusText})`;
+
   const versionStatus = pc.yellow(displayStatus);
 
   const nodeVersionBuffer = execSync('node -p process.versions.node');
+  
   const nodeVersionOutput = nodeVersionBuffer.toString();
   const nodeVersion = nodeVersionOutput.trim();
 
   const npmVersionBuffer = childProcess.execSync('npm -v');
+  
   const npmVersionOutput = npmVersionBuffer.toString();
   const npmVersion = npmVersionOutput.trim();
 
@@ -81,6 +91,7 @@ void (async () => {
   const readmePath = path.join(docsDirectory, 'README.md');
 
   if (fs.existsSync(readmePath)) {
+    
     const readmeContent = fs.readFileSync(readmePath, 'utf8');
 
     const lines = readmeContent.split('\n');

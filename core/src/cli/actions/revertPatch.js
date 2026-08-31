@@ -2,8 +2,8 @@ import fs from 'node:fs/promises';
 import process from 'node:process';
 
 import pc from 'picocolors';
-import emoji from '../../utils/emoji.js';
-import indent from '../../utils/indent.js';
+import emoji from 'smapi-launcher/utils/emoji.js';
+import indent from 'smapi-launcher/utils/indent.js';
 
 import formatPath from '../utils/formatPath.js';
 
